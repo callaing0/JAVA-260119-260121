@@ -1,0 +1,25 @@
+package java260119;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Exec3 {
+	public static void main(String[] args) {
+		
+		List<Integer> numbers = new ArrayList<>(); 
+		numbers.add(50);
+		numbers.add(10);
+		numbers.add(30);
+		
+		//오름차순
+		Collections.sort(numbers);
+		System.out.println("오름차순: "+numbers);
+		
+		//내림차순
+		Collections.sort(numbers, Collections.reverseOrder());
+		System.out.println("오름차순: "+numbers);
+		
+	}
+
+}
