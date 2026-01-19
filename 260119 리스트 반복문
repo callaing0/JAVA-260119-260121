@@ -1,0 +1,67 @@
+package java2601190;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		// 이름, 국어, 영어, 수학 점수 입력 후 총점과 평균을 출력
+		Scanner sc = new Scanner(System.in);
+		
+		List<String[]> list = new ArrayList<>(); //[{"이름","국어점수","수학점수","영어점수","총합","평균"}][{}][{}]
+		
+		while(true) {
+		System.out.print("이름을 입력하시오: ");
+		String name = sc.nextLine();
+		
+		// while(무한루프)의 출구 설정
+		if(name.equals("q")) {
+			break;
+		}
+		
+		System.out.print("국어 점수를 입력하시오: ");
+		String kor_ = sc.nextLine();
+		
+		System.out.print("수학 점수를 입력하시오: ");
+		String mat_ = sc.nextLine();
+		
+		System.out.print("영어 점수를 입력하시오: ");
+		String eng_ = sc.nextLine();
+		
+		int kor = Integer.parseInt(kor_);
+		int mat = Integer.parseInt(mat_);
+		int eng = Integer.parseInt(eng_);
+		
+		int sum = kor+mat+eng;
+		double aver = sum/3.0;
+		
+		
+		String[] strs = new String[6];
+		strs[0] = name;
+		
+		//문장으로 변경
+		strs[1] = kor+"";
+		strs[2] = mat+"";
+		strs[3] = eng+"";
+		strs[4] = sum+"";
+		strs[5] = aver+"";
+		
+		//반복에 따른 저장
+		list.add(strs);
+		
+		}
+		
+		for(int i = 0; i < list.size(); i++) {
+			String[] strs = list.get(i);
+			System.out.printf("%s, %s, %s,  %s, %s, %s",strs[0],strs[1],strs[2],strs[3],strs[4],strs[5]);
+		}
+		
+		
+	}
+	
+	
+
+}
