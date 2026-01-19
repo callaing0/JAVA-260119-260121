@@ -1,0 +1,48 @@
+package java260119;
+
+import java.util.Scanner;
+import java.time.LocalDate;
+
+public class Exec5 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("이름을 입력하시오: ");
+        String name = sc.nextLine();
+
+        System.out.print("주민번호를 입력하시오 (예: 990101-1234567): ");
+        String ssn = sc.nextLine();
+
+        // 성별 코드
+        String genderCode = ssn.substring(7, 8);
+
+        // 성별 판별
+        String gender = "여자";
+        if (genderCode.equals("1") || genderCode.equals("3")) {
+            gender = "남자";
+        }
+
+        // 출생년도 계산
+        int year = Integer.parseInt(ssn.substring(0, 2));
+        int birthYear;
+
+        if (genderCode.equals("1") || genderCode.equals("2")) {
+            birthYear = 1900 + year;
+        } else {
+            birthYear = 2000 + year;
+        }
+
+        // 현재 년도
+        int currentYear = LocalDate.now().getYear();
+
+        // 나이 계산
+        int age = currentYear - birthYear + 1;
+
+        System.out.println("이름: " + name);
+        System.out.println("성별: " + gender);
+        System.out.println("나이: " + age + "세");
+
+        sc.close();
+    }
+}
