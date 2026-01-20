@@ -37,6 +37,12 @@ insert into member values (null, 'hong', '1234', '홍길동', '010-1111-1111', n
 - 내용 확인
  select * from member;
 
+- 검색 기능
+select no, id, name from member where~
 
+where name = '이름'
+where id = '아이디'
+where no > 3;
+where no > 3 or name = '이름'
 
 
