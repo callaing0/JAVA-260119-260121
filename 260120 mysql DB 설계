@@ -28,10 +28,15 @@
 - 데이터값 입력
 insert into member(no, id, password, name, phone, createdDate) 
 values(null, 'hong', '1234', '홍길동', '010-1111-1111', now());
-: no : 테이블 생성시 auto_increment 입력하여 null값 작성
-: createdDate : 데이터값 now() 입력하여 현재 시간이 작성
+: no : 테이블 생성시 auto_increment 입력하였기 때문에 null값 작성
+: createdDate : 데이터값에 now() 입력하여 현재 시간이 작성
 
 또는
 insert into member values (null, 'hong', '1234', '홍길동', '010-1111-1111', now());
 
-- 제약조건
+- 내용 확인
+ select * from member;
+
+
+
+
