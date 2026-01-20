@@ -41,6 +41,18 @@ public class MemberInsert {
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaExample?serverTimezone=Asia/Seoul","javaUser","1234");
+			
+			String sql = "";
+			sql += "insert into member(no, id, password, name, phone, createdDate) valuse";
+			sql += "(null, ?, ?, ?, ?, now())";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			pstmt.setString(3, name);
+			pstmt.setString(4, phone);
+			pstmt.executeUpdate();
+		
 		}catch(Exception e) {
 			System.out.println("DB 접속 실패");
 			e.printStackTrace();
