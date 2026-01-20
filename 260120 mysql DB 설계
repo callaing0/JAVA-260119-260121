@@ -1,0 +1,20 @@
+EX, 회원테이블
+ - 회원테이블 mamber
+1. 회원번호 no int not null auto_increment unique
+ : unique 중복 허용 X, null값 허용 
+2. 아이디 id varchar(50) not null primary key
+  : primary key 중복 허용 X, null값 허용 X 
+3. 비밀번호 passwoed varchar(50) not null
+4. 이름 name varchar(50) not null
+5. 전화번호 phone varchar(20) not null
+6. 등록일 createdData  DATETIME DEFAULT CURRENT_TIMESTAMP
+
+
+- Table 생성
+create table mamber(
+no int not null auto_increment unique, 
+id varchar(50) not null primary key,
+passwoed varchar(50) not null, 
+name varchar(50) not null,
+phone varchar(50) not null,
+createdDate DATETIME DEFAULT CURRENT_TIMESTAMP);
