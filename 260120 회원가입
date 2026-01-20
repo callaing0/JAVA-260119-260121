@@ -51,8 +51,15 @@ public class MemberInsert {
 			pstmt.setString(2, password);
 			pstmt.setString(3, name);
 			pstmt.setString(4, phone);
-			pstmt.executeUpdate();
+	
+			int result = pstmt.executeUpdate();
+			if(result > 0) {
+				System.out.println("등록 성공");
+			} else {
+				System.out.println("등록 실패");				
+			}
 		
+			
 		}catch(Exception e) {
 			System.out.println("DB 접속 실패");
 			e.printStackTrace();
