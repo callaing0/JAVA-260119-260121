@@ -1,0 +1,58 @@
+package java260120;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class MemberDelete {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("삭제할 회원 아이디를 입력하시오: ");
+        String id = sc.nextLine();
+
+        sc.close();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/javaExample?serverTimezone=Asia/Seoul",
+                "javaUser",
+                "1234"
+            );
+
+            String sql = "DELETE FROM member WHERE id = ?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+
+            int result = pstmt.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("회원 삭제 성공");
+            } else {
+                System.out.println("해당 아이디가 존재하지 않습니다");
+            }
+
+        } catch (Exception e) {
+            System.out.println("DB 오류 발생");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("프로그램 종료");
+    }
+}
