@@ -1,3 +1,10 @@
+- mysql 접속
+1. mysql -u [계정] -p 후 비밀번호 작성
+2. show databases;
+3. show tables from [databases 이름];
+4. use [databases 이름];
+
+
 - 회원테이블 member
    1. 회원번호 no int not null auto_increment unique
     : unique 중복 허용 X, null값 허용 
@@ -23,3 +30,8 @@ insert into member(no, id, password, name, phone, createdDate)
 values(null, 'hong', '1234', '홍길동', '010-1111-1111', now());
 : no : 테이블 생성시 auto_increment 입력하여 null값 작성
 : createdDate : 데이터값 now() 입력하여 현재 시간이 작성
+
+또는
+insert into member values (null, 'hong', '1234', '홍길동', '010-1111-1111', now());
+
+- 제약조건
