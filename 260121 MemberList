@@ -56,8 +56,12 @@ public class MemberList {
                 e.printStackTrace();
             }
         }
+        
+        for(int i = 0; i < list.size(); i++) {
+        	MemberDTO dto = list.get(i);
+        	 System.out.printf("%d, %s, %s, %s, %s%n",
+                     dto.getNo(), dto.getId(), dto.getName(), dto.getPhone(), dto.getCreatedDate());
+        }
 
-        System.out.println("조회된 회원 수: " + list.size());
-        System.out.println("프로그램 종료");
     }
 }
