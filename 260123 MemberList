@@ -1,0 +1,51 @@
+package java260123;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class MemberList {
+
+    public static void list() {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/javaExample?serverTimezone=Asia/Seoul",
+                    "javaUser",
+                    "1234"
+            );
+
+            String sql = "select no, id, name, phone, createdDate from member";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            System.out.println("번호\t아이디\t이름\t전화번호\t등록일");
+
+            while (rs.next()) {
+                System.out.print(rs.getInt("no") + "\t");
+                System.out.print(rs.getString("id") + "\t");
+                System.out.print(rs.getString("name") + "\t");
+                System.out.print(rs.getString("phone") + "\t");
+                System.out.println(rs.getString("createdDate"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
