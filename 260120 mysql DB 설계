@@ -46,3 +46,8 @@ where no > 3;
 where no > 3 or name = '이름'
 
 
+- 키(pk)
+   1. 기본
+   2. 후보
+   3. 대체
+   4. 수퍼
