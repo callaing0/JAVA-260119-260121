@@ -1,15 +1,19 @@
 package java260123_2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentDAO {
+    private List<StudentDTO> students = new ArrayList<>();
+    private int counter = 1;
 
-    public int setInsert(StudentDTO dto) {
-
-        System.out.println("setInsert 실행");
-        System.out.println("이름: " + dto.getName());
-        System.out.println("주민번호: " + dto.getResident());
-        System.out.println("전화번호: " + dto.getPhone());
-        System.out.println("주소: " + dto.getAddress());
-
+    // 등록
+    public int insertStudent(StudentDTO dto) {
+        dto.setNumber(counter++);
+        students.add(dto);
+        System.out.println("등록 완료: " + dto.getName());
         return 1;
     }
+
+    // 추후 수정: 목록, 상세보기, 수정, 삭제 구현 예정
 }
