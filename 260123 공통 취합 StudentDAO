@@ -1,0 +1,15 @@
+package java260123_2;
+
+public class StudentDAO {
+
+    public int setInsert(StudentDTO dto) {
+
+        System.out.println("setInsert 실행");
+        System.out.println("이름: " + dto.getName());
+        System.out.println("주민번호: " + dto.getResident());
+        System.out.println("전화번호: " + dto.getPhone());
+        System.out.println("주소: " + dto.getAddress());
+
+        return 1;
+    }
+}
