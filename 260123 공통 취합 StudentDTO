@@ -1,0 +1,61 @@
+package java260123_2;
+
+import java.sql.Date;
+
+public class StudentDTO {
+
+    private int number;
+    private String name;
+    private String resident;
+    private String phone;
+    private String address;
+    private Date createdDate;
+
+    // 기본 생성자
+    public StudentDTO() {}
+
+    // 등록용 생성자
+    public StudentDTO(String name, String resident, String phone, String address) {
+        this.name = name;
+        this.resident = resident;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+    public void setNumber(int number) {
+        this.number = number;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getResident() {
+        return resident;
+    }
+    public void setResident(String resident) {
+        this.resident = resident;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+}
