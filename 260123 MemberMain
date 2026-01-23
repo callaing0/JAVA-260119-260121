@@ -1,0 +1,48 @@
+package java260123;
+
+import java.util.Scanner;
+
+public class MemberMain {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        boolean run = true;
+
+        while (run) {
+            System.out.println("====== 회원 관리 ======");
+            System.out.println("1. 등록");
+            System.out.println("2. 목록");
+            System.out.println("3. 수정");
+            System.out.println("4. 삭제");
+            System.out.println("0. 종료");
+            System.out.print("선택: ");
+
+            int menu = sc.nextInt();
+            sc.nextLine(); // 엔터 처리
+
+            switch (menu) {
+                case 1:
+                    MemberInsert.insert();
+                    break;
+                case 2:
+                    MemberList.list();
+                    break;
+                case 3:
+                    MemberUpdate.update();
+                    break;
+                case 4:
+                    MemberDelete.delete();
+                    break;
+                case 0:
+                    run = false;
+                    System.out.println("프로그램 종료");
+                    break;
+                default:
+                    System.out.println("잘못된 선택입니다.");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+}
