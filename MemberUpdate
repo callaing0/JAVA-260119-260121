@@ -1,0 +1,68 @@
+package java260123;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class MemberUpdate {
+
+    public static void update() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("수정할 아이디: ");
+        String id = sc.nextLine();
+
+        System.out.print("새 비밀번호: ");
+        String password = sc.nextLine();
+
+        System.out.print("새 이름: ");
+        String name = sc.nextLine();
+
+        System.out.print("새 전화번호: ");
+        String phone = sc.nextLine();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/javaExample?serverTimezone=Asia/Seoul",
+                    "javaUser",
+                    "1234"
+            );
+
+            String sql = "";
+            sql += "update member ";
+            sql += "set password=?, name=?, phone=? ";
+            sql += "where id=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, password);
+            pstmt.setString(2, name);
+            pstmt.setString(3, phone);
+            pstmt.setString(4, id);
+
+            int result = pstmt.executeUpdate();
+
+            if (result > 0) {
+                System.out.println("수정 성공");
+            } else {
+                System.out.println("해당 아이디가 없습니다.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
