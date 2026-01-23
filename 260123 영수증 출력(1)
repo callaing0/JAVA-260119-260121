@@ -1,0 +1,16 @@
+package java260123_1;
+
+class Bill {
+	
+	String name;   //품명
+	int price; 	   //단가
+	int quantify;  //수량
+	
+	public Bill() {}	
+	
+	public Bill(String n, int p, int q) {	
+		price = p;
+		quantify = q;
+	}  
+	
+}
