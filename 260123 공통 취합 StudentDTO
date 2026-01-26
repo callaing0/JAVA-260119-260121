@@ -3,17 +3,22 @@ package java260123_2;
 import java.sql.Date;
 
 public class StudentDTO {
+
     private int number;
-    private String name, resident, phone, address;
+    private String name;
+    private String resident;
+    private String phone;
+    private String address;
     private Date createdDate;
 
-    // 등록용 생성자
+    public StudentDTO() {}
+
+    // 등록용
     public StudentDTO(String name, String resident, String phone, String address) {
         this.name = name;
         this.resident = resident;
         this.phone = phone;
         this.address = address;
-        this.createdDate = new Date(System.currentTimeMillis());
     }
 
     // getter & setter
@@ -26,9 +31,11 @@ public class StudentDTO {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
     public Date getCreatedDate() { return createdDate; }
+    public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
 
     @Override
     public String toString() {
-        return number + " | " + name + " | " + resident + " | " + phone + " | " + address + " | " + createdDate;
+        return number + " | " + name + " | " + resident + " | "
+                + phone + " | " + address + " | " + createdDate;
     }
 }
