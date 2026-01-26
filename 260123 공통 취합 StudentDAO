@@ -1,19 +1,136 @@
 package java260123_2;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
-    private List<StudentDTO> students = new ArrayList<>();
-    private int counter = 1;
 
-    // 등록
-    public int insertStudent(StudentDTO dto) {
-        dto.setNumber(counter++);
-        students.add(dto);
-        System.out.println("등록 완료: " + dto.getName());
-        return 1;
+    private Connection getConnection() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/javaExample?serverTimezone=Asia/Seoul",
+            "javaUser",
+            "1234"
+        );
     }
 
-    // 추후 수정: 목록, 상세보기, 수정, 삭제 구현 예정
+    // 1. 등록
+    public int insertStudent(StudentDTO dto) {
+        String sql = "INSERT INTO student (name, resident, phone, address, createdDate) "
+                   + "VALUES (?, ?, ?, ?, NOW())";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dto.getName());
+            pstmt.setString(2, dto.getResident());
+            pstmt.setString(3, dto.getPhone());
+            pstmt.setString(4, dto.getAddress());
+
+            return pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    // 2. 목록
+    public List<StudentDTO> getStudentList() {
+        List<StudentDTO> list = new ArrayList<>();
+        String sql = "SELECT * FROM student ORDER BY number";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                StudentDTO dto = new StudentDTO();
+                dto.setNumber(rs.getInt("number"));
+                dto.setPhone(rs.getString("phone"));
+                dto.setAddress(rs.getString("address"));
+                dto.setCreatedDate(rs.getDate("createdDate"));
+
+                // setter 없는 항목은 생성자로 처리
+                dto = new StudentDTO(
+                        rs.getString("name"),
+                        rs.getString("resident"),
+                        rs.getString("phone"),
+                        rs.getString("address")
+                );
+                dto.setNumber(rs.getInt("number"));
+                dto.setCreatedDate(rs.getDate("createdDate"));
+
+                list.add(dto);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 3. 상세보기
+    public StudentDTO getStudent(int number) {
+        String sql = "SELECT * FROM student WHERE number = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, number);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                StudentDTO dto = new StudentDTO(
+                        rs.getString("name"),
+                        rs.getString("resident"),
+                        rs.getString("phone"),
+                        rs.getString("address")
+                );
+                dto.setNumber(rs.getInt("number"));
+                dto.setCreatedDate(rs.getDate("createdDate"));
+                return dto;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 4. 수정
+    public int updateStudent(StudentDTO dto) {
+        String sql = "UPDATE student SET phone=?, address=? WHERE number=?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dto.getPhone());
+            pstmt.setString(2, dto.getAddress());
+            pstmt.setInt(3, dto.getNumber());
+
+            return pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    // 5. 삭제
+    public int deleteStudent(int number) {
+        String sql = "DELETE FROM student WHERE number=?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, number);
+            return pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }
