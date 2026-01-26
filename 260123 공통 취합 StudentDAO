@@ -17,8 +17,8 @@ public class StudentDAO {
 
     // 1. 등록
     public int insertStudent(StudentDTO dto) {
-        String sql = "INSERT INTO student (name, resident, phone, address, createdDate) "
-                   + "VALUES (?, ?, ?, ?, NOW())";
+        String sql = "INSERT INTO student (number, name, resident, phone, address, createdDate) "
+                   + "VALUES (null, ?, ?, ?, ?, NOW())";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -99,7 +99,7 @@ public class StudentDAO {
         return null;
     }
 
-    // 4. 수정
+ // 4. 수정
     public int updateStudent(StudentDTO dto) {
         String sql = "UPDATE student SET phone=?, address=? WHERE number=?";
 
