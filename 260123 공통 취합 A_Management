@@ -57,7 +57,7 @@ public class A_Management {
                 case 4:
                     System.out.print("수정할 번호: ");
                     int uNo = sc.nextInt();
-                    sc.nextLine();
+                    sc.nextLine();  // 버퍼 비우기
 
                     System.out.print("새 전화번호: ");
                     String uPhone = sc.nextLine();
