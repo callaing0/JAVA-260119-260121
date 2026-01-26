@@ -1,10 +1,12 @@
 package java260123_2;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class A_Management {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         StudentDAO dao = new StudentDAO();
         boolean run = true;
@@ -14,41 +16,76 @@ public class A_Management {
             System.out.println("1. 목록  2. 상세보기  3. 등록  4. 수정  5. 삭제  0. 종료");
             System.out.print("선택: ");
             int menu = sc.nextInt();
-            sc.nextLine(); // 버퍼 정리
+            sc.nextLine();
 
             switch (menu) {
                 case 1:
-                    System.out.println("====== 목록 ======");
-                    // 추후 수정
+                    List<StudentDTO> list = dao.getStudentList();
+                    System.out.println("번호 | 이름 | 주민번호 | 전화 | 주소 | 등록일");
+                    for (StudentDTO s : list) {
+                        System.out.println(s);
+                    }
                     break;
-                case 2:
-                    System.out.println("====== 상세 보기 ======");
-                    // 추후 수정
-                    break;
-                case 3:
-                    System.out.println("====== 등록 ======");
-                    System.out.print("이름: "); String name = sc.nextLine();
-                    System.out.print("주민번호: "); String resident = sc.nextLine();
-                    System.out.print("전화번호: "); String phone = sc.nextLine();
-                    System.out.print("주소: "); String address = sc.nextLine();
 
-                    StudentDTO dto = new StudentDTO(name, resident, phone, address);
-                    dao.insertStudent(dto);
+                case 2:
+                    System.out.print("조회할 번호: ");
+                    int no = sc.nextInt();
+                    sc.nextLine();
+
+                    StudentDTO detail = dao.getStudent(no);
+                    if (detail != null) {
+                        System.out.println(detail);
+                    } else {
+                        System.out.println("회원 없음");
+                    }
                     break;
+
+                case 3:
+                    System.out.print("이름: ");
+                    String name = sc.nextLine();
+                    System.out.print("주민번호: ");
+                    String resident = sc.nextLine();
+                    System.out.print("전화번호: ");
+                    String phone = sc.nextLine();
+                    System.out.print("주소: ");
+                    String address = sc.nextLine();
+
+                    dao.insertStudent(new StudentDTO(name, resident, phone, address));
+                    System.out.println("등록 완료");
+                    break;
+
                 case 4:
-                    System.out.println("====== 수정 ======");
-                    // 추후 수정
+                    System.out.print("수정할 번호: ");
+                    int uNo = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("새 전화번호: ");
+                    String uPhone = sc.nextLine();
+                    System.out.print("새 주소: ");
+                    String uAddress = sc.nextLine();
+
+                    StudentDTO uDto = new StudentDTO();
+                    uDto.setNumber(uNo);
+                    uDto.setPhone(uPhone);
+                    uDto.setAddress(uAddress);
+
+                    dao.updateStudent(uDto);
+                    System.out.println("수정 완료");
                     break;
+
                 case 5:
-                    System.out.println("====== 삭제 ======");
-                    // 추후 수정
+                    System.out.print("삭제할 번호: ");
+                    int dNo = sc.nextInt();
+                    sc.nextLine();
+
+                    dao.deleteStudent(dNo);
+                    System.out.println("삭제 완료");
                     break;
+
                 case 0:
                     run = false;
                     System.out.println("프로그램 종료");
                     break;
-                default:
-                    System.out.println("잘못된 선택입니다.");
             }
             System.out.println();
         }
